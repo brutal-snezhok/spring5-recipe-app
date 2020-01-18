@@ -1,5 +1,6 @@
 package guru.springframework.controller;
 
+import guru.springframework.command.RecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.service.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,9 +39,24 @@ public class RecipeControllerTest {
 
         when(recipeService.findById(anyLong())).thenReturn(recipe);
 
-        mockMvc.perform(get("/recipe/show/1"))
+        mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"))
+                .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void testGetUpdateView() throws Exception {
+        RecipeCommand command = new RecipeCommand();
+        command.setId(2L);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        when(recipeService.findCommandById(anyLong())).thenReturn(command);
+
+        mockMvc.perform(get("/recipe/1/update"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipeForm"))
                 .andExpect(model().attributeExists("recipe"));
     }
 }
