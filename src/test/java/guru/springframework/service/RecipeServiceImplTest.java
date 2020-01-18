@@ -19,7 +19,7 @@ import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 public class RecipeServiceImplTest {
 
-    RecipeServiceImpl recipeService;
+    private RecipeServiceImpl recipeService;
 
     @Mock
     RecipeRepository recipeRepository;

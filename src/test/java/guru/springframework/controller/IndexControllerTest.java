@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 class IndexControllerTest {
-    IndexController indexController;
+    private IndexController indexController;
 
     @Mock
     RecipeService recipeService;
