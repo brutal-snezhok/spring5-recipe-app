@@ -1,5 +1,7 @@
 package guru.springframework.service;
 
+import guru.springframework.converter.RecipeCommandToRecipe;
+import guru.springframework.converter.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repository.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,22 +17,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
-class RecipeServiceImplTest {
+public class RecipeServiceImplTest {
+
+    RecipeServiceImpl recipeService;
 
     @Mock
     RecipeRepository recipeRepository;
 
-    private RecipeServiceImpl recipeService;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
-    void getRecipeByIdTest() {
+    public void getRecipeByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -45,13 +53,13 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipesTest() {
+    public void getRecipesTest() throws Exception {
 
         Recipe recipe = new Recipe();
-        HashSet receiptsData = new HashSet();
-        receiptsData.add(recipe);
+        HashSet receipesData = new HashSet();
+        receipesData.add(recipe);
 
-        when(recipeService.getRecipes()).thenReturn(receiptsData);
+        when(recipeService.getRecipes()).thenReturn(receipesData);
 
         Set<Recipe> recipes = recipeService.getRecipes();
 
