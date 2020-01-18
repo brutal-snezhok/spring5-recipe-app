@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
-/**
- * Created by jt on 6/17/17.
- */
 class RecipeServiceImplTest {
 
     @Mock
