@@ -87,7 +87,9 @@ public class RecipeControllerTest {
 
     @Test
     public void testGetRecipeNumberFormatException() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
 
         mockMvc.perform(get("/recipe/asdf/show"))
                 .andExpect(status().isBadRequest())
